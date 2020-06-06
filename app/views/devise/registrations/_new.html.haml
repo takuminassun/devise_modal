@@ -1,0 +1,30 @@
+#signUpModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5.modal-title
+          %h1 Sign Up
+        %button.close{"data-dismiss" => "modal", :type => "button"}
+          %span ×
+      .modal-body
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .field
+            = f.label :email
+            %br/
+            = f.email_field :email, autofocus: true, autocomplete: "email", size: "30"
+          .field
+            = f.label :password
+            - if @minimum_password_length
+              %em
+                (#{@minimum_password_length} characters minimum)
+            %br/
+            = f.password_field :password, autocomplete: "off", size: "30"
+          .field
+            = f.label :password_confirmation
+            %br/
+            = f.password_field :password_confirmation, autocomplete: "off", size: "30"
+          .actions
+            = f.submit "Sign up", class: 'btn btn-primary'
+      .modal-footer
+        %button.btn.btn-danger{"data-dismiss" => "modal", :type => "button"} Close

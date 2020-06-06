@@ -65,3 +65,4 @@ gem 'devise'
 
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'haml-rails'

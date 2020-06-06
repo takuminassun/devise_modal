@@ -1,0 +1,14 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %a.navbar-brand{:href => "#"} Navbar
+  %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNav", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse
+    %ul.navbar-nav
+      - if user_signed_in?
+        %li.nav-item.active
+          = link_to('Logout', destroy_user_session_path, method: :delete)
+      - else
+        %li.nav-item.active
+          %a.nav-link{"data-target" => "#signUpModal", "data-toggle" => "modal"} Sign Up
+        %li.nav-item
+          %a.nav-link{"data-target" => "#logInModal", "data-toggle" => "modal"} Log In
