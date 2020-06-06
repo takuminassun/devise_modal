@@ -1,0 +1,65 @@
+- if user_signed_in?
+  %div
+    こんにちは、#{@user.email} さん
+  = link_to('ログアウト', destroy_user_session_path, method: :delete)
+- else
+  .content
+    %a.js-modal-open{"data-target" => "modal01", :href => ""} 新規登録
+    %br/
+    %a.js-modal-open{"data-target" => "modal02", :href => ""} ログイン
+  #modal01.modal.js-modal
+    .modal__bg.js-modal-close
+    .modal__content
+      .modal-body
+        %h1 新規登録
+        %br/
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .field
+            = f.label :email
+            %br/
+            = f.email_field :email, autofocus: true, autocomplete: "email", size: "30"
+          .field
+            = f.label :password
+            - if @minimum_password_length
+              %em
+                (#{@minimum_password_length} characters minimum)
+            %br/
+            = f.password_field :password, autocomplete: "off", size: "30"
+          .field
+            = f.label :password_confirmation
+            %br/
+            = f.password_field :password_confirmation, autocomplete: "off", size: "30"
+          .actions
+            = f.submit "Sign up", class: 'btn btn-primary'
+      %a.js-modal-close{:href => ""} 閉じる
+    / modal__inner
+  / modal
+  #modal02.modal.js-modal
+    .modal__bg.js-modal-close
+    .modal__content
+      .modal-body
+        %div
+          %h1 ログイン
+          %br/
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .wrap
+              .field
+                %label{:for => "email"} Email
+                = f.email_field :email
+              .field
+                %label{:for => "password"} Password
+                = f.password_field :password, autocomplete: "off"
+              %br/
+              %div
+                - if devise_mapping.rememberable?
+                  .field
+                    = f.check_box :remember_me
+                    = f.label :remember_me
+              %div
+                = f.submit "Log in", class: 'btn btn-primary'
+              %div
+                - render "devise/shared/links"
+      %a.js-modal-close{:href => ""} 閉じる
+    / modal__inner
+  / modal
